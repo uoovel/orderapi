@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Customer;
+import com.codeurmas.orderapi.model.Orders;
 import com.codeurmas.orderapi.repository.CustomerRepository;
 import com.codeurmas.orderapi.service.dto.CustomerDto;
 import com.codeurmas.orderapi.service.mapper.CustomerMapper;
@@ -43,6 +45,11 @@ public class CustomerService {
 	public void delete(Long id) {
         customerRepository.deleteById(id);
     }
+	
+	public Customer update(Customer customer) {
+		Customer customerChecked = customerRepository.findById(customer.getId()).orElseThrow(() -> new OrderException("Customer#" + customer.getId() + " not found"));
+		return customerRepository.save(customer);
+	}
 	
 	//public Customer getCustomerByName(String testCustomerName) {
 		

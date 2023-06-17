@@ -13,6 +13,7 @@ import com.codeurmas.orderapi.repository.CustomerRepository;
 import com.codeurmas.orderapi.repository.OrderLineRepository;
 import com.codeurmas.orderapi.repository.OrderRepository;
 import com.codeurmas.orderapi.repository.ProductRepository;
+import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Customer;
 import com.codeurmas.orderapi.model.OrderLine;
 import com.codeurmas.orderapi.model.Orders;
@@ -105,10 +106,10 @@ public class OrderService {
 	    	}*/
 	    		
 	        return repo.findAll();
-	    }
-	     
-	    public void save(Orders order) {
-	        repo.save(order);
+	    }	    
+	    
+	    public Orders save(Orders order) {
+	        return repo.save(order);
 	    }
 	     
 	    public Orders get(long id) {
@@ -118,9 +119,16 @@ public class OrderService {
 	    public void delete(long id) {
 	        repo.deleteById(id);
 	    }
+	    
+	    public Orders update(Orders order) {
+			Orders orderChecked = repo.findById(order.getId()).orElseThrow(() -> new OrderException("Order#" + order.getId() + " not found"));
+			return repo.save(order);
+		}
 
 		public Orders getOrderByOrderDate(String randDate) {
 			// TODO Auto-generated method stub
 			return repo.getByDate(randDate);
 		}
+
+		
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.codeurmas.orderapi.repository.ProductRepository;
+import com.codeurmas.orderapi.exception.OrderException;
+import com.codeurmas.orderapi.model.Customer;
 import com.codeurmas.orderapi.model.Product;
 
 @Service
@@ -20,16 +22,21 @@ public class ProductService {
 	        return repo.findAll();
 	    }
 	     
-	    public void save(Product product) {
-	        repo.save(product);
+	    public Product save(Product product) {
+	        return repo.save(product);
 	    }
 	     
-	    public Product get(long id) {
+	    public Product get(Long id) {
 	        return repo.findById(id).get();
 	    }
 	     
-	    public void delete(long id) {
+	    public void delete(Long id) {
 	        repo.deleteById(id);
 	    }
+	    
+	    public Product update(Product product) {
+			Product productChecked = repo.findById(product.getId()).orElseThrow(() -> new OrderException("Product#" + product.getId() + " not found"));
+			return repo.save(product);
+		}
 	    
 }

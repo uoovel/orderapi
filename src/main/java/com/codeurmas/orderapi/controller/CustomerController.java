@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Customer;
 import com.codeurmas.orderapi.service.CustomerService;
 import com.codeurmas.orderapi.service.dto.CustomerDto;
@@ -61,16 +62,15 @@ public class CustomerController {
 	
 	@PutMapping("/customers/{id}")
 	public ResponseEntity<Customer> update(@RequestBody Customer customer, @PathVariable Long id){
-		System.out.println(customer.getFullName());
-		//customerService.save(customer);
-		//return new ResponseEntity<>(HttpStatus.OK);
+		//System.out.println(customer.getFullName());
+		
 		if (customer == null) {
-            //throw new CustomerException("User data are missing");
+            throw new OrderException("Customer data are missing");
         }
 		customer.setId(id);
 		return ResponseEntity
                 .ok()
-                .body(customerService.save(customer));
+                .body(customerService.update(customer));
 	}
 	
 	
