@@ -1,9 +1,10 @@
 package com.codeurmas.orderapi.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class OrderLine {
+public class OrderLine implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -14,9 +15,7 @@ public class OrderLine {
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
-	@ManyToOne
-	@JoinColumn(name = "orders_id")
-	private Orders order;
+	
 	
     public OrderLine() {
 		
@@ -29,13 +28,17 @@ public class OrderLine {
 		this.product = product;
 	}
 	
+	 ///////////////
+	@ManyToOne
+	@JoinColumn(name = "orders_id")
+	private Orders order;
 	public Orders getOrder() {
 		return order;
 	}
 	public void setOrder(Orders order) {
 		this.order = order;
 	}
-	
+	///////////////////
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -50,4 +53,10 @@ public class OrderLine {
     public Long getId() {
 		return id;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderLine [id=" + id + ", quantity=" + quantity +  "]";
+	}
+    
 }

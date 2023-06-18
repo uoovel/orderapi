@@ -21,15 +21,15 @@ public class Orders implements Serializable{
 	
 	
 	
-	@OneToMany(mappedBy = "order")
-	private List<OrderLine> listOrderLines = new ArrayList<>();
-	
+	//@OneToMany(mappedBy = "order")
+	//private List<OrderLine> listOrderLines = new ArrayList<>();
+	/*
 	public List<OrderLine> getListOrderLines() {
 		return listOrderLines;
 	}
 	public void setListOrderLines(List<OrderLine> listOrderLines) {
 		this.listOrderLines = listOrderLines;
-	}
+	}*/
 	@ManyToOne
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
@@ -57,4 +57,10 @@ public class Orders implements Serializable{
     public Long getId() {
 		return id;
 	}
+	@Override
+	public String toString() {
+		return "Orders [id=" + id  + ", customer="
+				+ customer + "]";
+	}
+    
 }

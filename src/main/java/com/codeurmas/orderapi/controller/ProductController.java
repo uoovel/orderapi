@@ -27,12 +27,12 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping(value = "/products/all", produces = {"application/json"})
-	public ResponseEntity<List<Product>> getAllCroducts() {
+	public ResponseEntity<List<Product>> getAllProducts() {
 		List<Product> productList = productService.listAll();
-		for (Product cu : productList)
-		{
-			System.out.println(cu);
-		}
+		//for (Product cu : productList)
+		//{
+		//	System.out.println(cu);
+		//}
 		return ResponseEntity
 				.ok()
 				.body(productList);

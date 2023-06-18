@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.codeurmas.orderapi.repository.OrderLineRepository;
+import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.OrderLine;
+import com.codeurmas.orderapi.model.Orders;
 
 @Service
 @Transactional
@@ -19,8 +21,8 @@ public class OrderLineService {
 	        return repo.findAll();
 	    }
 	     
-	    public void save(OrderLine orderLine) {
-	        repo.save(orderLine);
+	    public OrderLine save(OrderLine orderLine) {
+	        return repo.save(orderLine);
 	    }
 	     
 	    public OrderLine get(long id) {
@@ -30,4 +32,14 @@ public class OrderLineService {
 	    public void delete(long id) {
 	        repo.deleteById(id);
 	    }
+	    
+	    public OrderLine update(OrderLine orderLine) {
+			OrderLine orderLineChecked = repo.findById(orderLine.getId()).orElseThrow(() -> new OrderException("OrderLine#" + orderLine.getId() + " not found"));
+			
+			OrderLine orderLineSaved = repo.save(orderLine);
+			
+			System.out.println("OrderLineService update100: " + orderLine);
+			System.out.println("OrderLineService update200: " + orderLineSaved);
+			return orderLineSaved;
+		}
 }
