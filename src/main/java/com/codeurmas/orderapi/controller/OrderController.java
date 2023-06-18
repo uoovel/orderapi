@@ -1,9 +1,12 @@
 package com.codeurmas.orderapi.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,7 +24,14 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	
+	@GetMapping(value = "/orders/all", produces = {"application/json"})
+	public ResponseEntity<List<Orders>> getAllOrders() {
+		List<Orders> orderList = orderService.listAll();
+		
+		return ResponseEntity
+				.ok()
+				.body(orderList);
+	}
 	
 	@PostMapping(value = "/orders", produces = {"application/json"}, consumes = { "application/json"})
 	public ResponseEntity<Orders> createOrder(@RequestBody Orders order ){
@@ -51,6 +61,14 @@ public class OrderController {
 	    return ResponseEntity.noContent().build();       
 	}
 	
+	
+	@GetMapping("/orders/{dateString}")
+	public ResponseEntity<List<Orders>> getOrdersByDate(@PathVariable String dateString){
+		List<Orders> ordersListByDate = orderService.getOrdersByDate(dateString);
+		return ResponseEntity
+				.ok()
+				.body(ordersListByDate);
+	}
 	
 	
 	

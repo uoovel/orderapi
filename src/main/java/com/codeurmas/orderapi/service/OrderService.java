@@ -125,9 +125,19 @@ public class OrderService {
 			return repo.save(order);
 		}
 
-		public Orders getOrderByOrderDate(String randDate) {
+		//public Orders getOrderByOrderDate(String randDate) {
+		//	// TODO Auto-generated method stub
+		//	return repo.getByDate(randDate);
+		//}
+
+		public List<Orders> getOrdersByDate(String dateString) {
 			// TODO Auto-generated method stub
-			return repo.getByDate(randDate);
+			return repo.findAll(dateString);
+		}
+
+		public List<Orders> listAll() {
+			// TODO Auto-generated method stub
+			return repo.findAll();
 		}
 
 		
