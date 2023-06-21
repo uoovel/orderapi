@@ -30,10 +30,6 @@ public class CustomerController {
 	@GetMapping(value = "/customers/all", produces = {"application/json"})
 	public ResponseEntity<List<Customer>> getAllCustomers() {
 		List<Customer> customerList = customerService.listAll();
-		for (Customer cu : customerList)
-		{
-			System.out.println(cu);
-		}
 		return ResponseEntity
 				.ok()
 				.body(customerList);
@@ -43,13 +39,10 @@ public class CustomerController {
 	public ResponseEntity<Customer> createCustomer(@RequestBody Customer customer ){
 		if (customer == null) {
             //throw new CustomerException("Customer data are missing");
-        }
-		
+        }		
         return ResponseEntity
                 .ok()
                 .body(customerService.save(customer));
-		
-		
 	}
 	
 	@GetMapping("/customers/{id}")
@@ -62,8 +55,6 @@ public class CustomerController {
 	
 	@PutMapping("/customers/{id}")
 	public ResponseEntity<Customer> update(@RequestBody Customer customer, @PathVariable Long id){
-		//System.out.println(customer.getFullName());
-		
 		if (customer == null) {
             throw new OrderException("Customer data are missing");
         }
@@ -71,8 +62,7 @@ public class CustomerController {
 		return ResponseEntity
                 .ok()
                 .body(customerService.update(customer));
-	}
-	
+	}	
 	
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {

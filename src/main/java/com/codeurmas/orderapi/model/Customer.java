@@ -1,13 +1,15 @@
 package com.codeurmas.orderapi.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "customer")
-public class Customer {
+public class Customer implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenceGenerator")
-	@SequenceGenerator(name = "sequenceGenerator")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String fullName;
 	private String regCode;
@@ -16,11 +18,9 @@ public class Customer {
 	
 	public Customer() {
 		
-	}
-	
+	}	
 	
 	public Customer(Long id, String fullName) {
-		//super();
 		this.id = id;
 		this.fullName = fullName;
 	}
@@ -56,13 +56,11 @@ public class Customer {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
+	}	
 
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", fullName=" + fullName + "]";
 	}
-	
 	
 }

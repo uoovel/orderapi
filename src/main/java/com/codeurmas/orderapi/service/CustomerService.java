@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Customer;
-import com.codeurmas.orderapi.model.Orders;
+
 import com.codeurmas.orderapi.repository.CustomerRepository;
 import com.codeurmas.orderapi.service.dto.CustomerDto;
 import com.codeurmas.orderapi.service.mapper.CustomerMapper;
@@ -18,9 +18,6 @@ import com.codeurmas.orderapi.service.mapper.CustomerMapper;
 @Service
 @Transactional
 public class CustomerService {
-	
-	//@Autowired
-	//private CustomerMapper customerMapper;
 	
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -31,10 +28,7 @@ public class CustomerService {
 	}
 	
 	public Customer save(Customer customer) {
-		
-		//Customer customer = customerMapper.toEntity(customerDTO);
-		Customer customerSaved = customerRepository.save(customer);
-		
+		Customer customerSaved = customerRepository.save(customer);		
 		return customerSaved;		
 	}
 	
@@ -49,14 +43,6 @@ public class CustomerService {
 	public Customer update(Customer customer) {
 		Customer customerChecked = customerRepository.findById(customer.getId()).orElseThrow(() -> new OrderException("Customer#" + customer.getId() + " not found"));
 		return customerRepository.save(customer);
-	}
-	
-	//public Customer getCustomerByName(String testCustomerName) {
-		
-	//	return customerRepository.getByName(testCustomerName);
-	//}
-
-
-	
+	}	
 
 }

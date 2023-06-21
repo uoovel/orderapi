@@ -15,7 +15,7 @@ import com.codeurmas.orderapi.model.Product;
 @Transactional
 public class ProductService {
 	   
-	   @Autowired
+	    @Autowired
 	    private ProductRepository repo;
 	     
 	    public List<Product> listAll() {
@@ -29,14 +29,14 @@ public class ProductService {
 	    public Product get(Long id) {
 	        return repo.findById(id).get();
 	    }
-	     
-	    public void delete(Long id) {
-	        repo.deleteById(id);
-	    }
 	    
 	    public Product update(Product product) {
 			Product productChecked = repo.findById(product.getId()).orElseThrow(() -> new OrderException("Product#" + product.getId() + " not found"));
 			return repo.save(product);
 		}
+	     
+	    public void delete(Long id) {
+	        repo.deleteById(id);
+	    }
 	    
 }

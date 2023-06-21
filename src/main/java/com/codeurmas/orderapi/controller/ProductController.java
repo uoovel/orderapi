@@ -28,11 +28,7 @@ public class ProductController {
 	
 	@GetMapping(value = "/products/all", produces = {"application/json"})
 	public ResponseEntity<List<Product>> getAllProducts() {
-		List<Product> productList = productService.listAll();
-		//for (Product cu : productList)
-		//{
-		//	System.out.println(cu);
-		//}
+		List<Product> productList = productService.listAll();	
 		return ResponseEntity
 				.ok()
 				.body(productList);
@@ -41,7 +37,7 @@ public class ProductController {
 	@PostMapping(value = "/products", produces = {"application/json"}, consumes = { "application/json"})
 	public ResponseEntity<Product> createProduct(@RequestBody Product product ){
 		if (product == null) {
-            //throw new ProductException("Product data are missing");
+            throw new OrderException("Product data are missing");
         }		
         return ResponseEntity
                 .ok()
@@ -58,7 +54,6 @@ public class ProductController {
 	
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> update(@RequestBody Product product, @PathVariable Long id){
-		
 		if (product == null) {
             throw new OrderException("Product data are missing");
         }
@@ -66,8 +61,7 @@ public class ProductController {
 		return ResponseEntity
                 .ok()
                 .body(productService.update(product));
-	}
-	
+	}	
 	
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {

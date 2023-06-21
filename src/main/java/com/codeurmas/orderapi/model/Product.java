@@ -1,15 +1,17 @@
 package com.codeurmas.orderapi.model;
 //import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Product {
+public class Product implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column
-	//@Length(min=1, max=100, message="{Check name}")
 	private String name;
 	
 	@Column
@@ -17,6 +19,10 @@ public class Product {
 	
 	@Column
 	private double unitPrice;
+	
+    public Product() {
+		
+	}
 	
 	public String getSkuCode() {
 		return skuCode;
@@ -29,10 +35,7 @@ public class Product {
 	}
 	public void setUnitPrice(double unitPrice) {
 		this.unitPrice = unitPrice;
-	}
-	public Product() {
-		
-	}
+	}	
 	public String getName() {
 		return name;
 	}
@@ -41,14 +44,12 @@ public class Product {
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	
+	}	
     public Long getId() {
 		return id;
-	}
+	}	
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", skuCode=" + skuCode + ", unitPrice=" + unitPrice + "]";
-	}
-    
+	}    
 }
