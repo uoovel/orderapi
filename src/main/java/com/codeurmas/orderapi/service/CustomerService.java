@@ -43,6 +43,26 @@ public class CustomerService {
 	public Customer update(Customer customer) {
 		Customer customerChecked = customerRepository.findById(customer.getId()).orElseThrow(() -> new OrderException("Customer#" + customer.getId() + " not found"));
 		return customerRepository.save(customer);
+	}
+
+	public Customer partialUpdate(Customer customer) {
+		Customer customerChecked = customerRepository.findById(customer.getId()).orElseThrow(() -> new OrderException("Customer#" + customer.getId() + " not found"));
+        /*
+		String fullName = customer.getFullName();
+		if(fullName != null) {
+			customerChecked.setFullName(customer.getFullName());
+		}
+		String regCode = customer.getRegCode();
+		if(regCode != null) {
+			customerChecked.setRegCode(customer.getRegCode());
+		}
+		
+		String email = customer.getEmail();
+		String phone = customer.getPhone();	
+		*/
+		
+		customerRepository.save(customerChecked);
+        return customerChecked;
 	}	
 
 }

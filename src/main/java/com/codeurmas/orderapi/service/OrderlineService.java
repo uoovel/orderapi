@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.codeurmas.orderapi.repository.OrderlineRepository;
 import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Orderline;
+import com.codeurmas.orderapi.model.Ordermodel;
 
 
 @Service
@@ -38,4 +39,11 @@ public class OrderlineService {
 			Orderline orderlineSaved = repo.save(orderline);
 			return orderlineSaved;
 		}
+	    
+	    public Orderline partialUpdate(Orderline orderline) {
+			Orderline orderlineChecked = repo.findById(orderline.getId()).orElseThrow(() -> new OrderException("Orderline#" + orderline.getId() + " not found"));
+	        repo.save(orderlineChecked);
+	        return orderlineChecked;
+		}	
+	     
 }

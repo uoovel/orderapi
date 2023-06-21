@@ -62,7 +62,20 @@ public class CustomerController {
 		return ResponseEntity
                 .ok()
                 .body(customerService.update(customer));
-	}	
+	}
+	
+	@PatchMapping(value = "/customers/{id}",  produces = {"application/json"}, consumes = { "application/json", "application/merge-patch+json" })
+    public ResponseEntity<Customer> partialUpdateCustomer(
+            @PathVariable(value = "id", required = false) final Long id,
+            @RequestBody Customer customer){
+        if (customer == null) {
+            throw new OrderException("Customer data are missing");
+        }
+        customer.setId(id);
+        return ResponseEntity
+                .ok()
+                .body(customerService.partialUpdate(customer));
+    }
 	
 	@DeleteMapping("/customers/{id}")
 	public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) {

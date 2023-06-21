@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.codeurmas.orderapi.repository.ProductRepository;
 import com.codeurmas.orderapi.exception.OrderException;
 import com.codeurmas.orderapi.model.Customer;
+import com.codeurmas.orderapi.model.Ordermodel;
 import com.codeurmas.orderapi.model.Product;
 
 @Service
@@ -34,6 +35,12 @@ public class ProductService {
 			Product productChecked = repo.findById(product.getId()).orElseThrow(() -> new OrderException("Product#" + product.getId() + " not found"));
 			return repo.save(product);
 		}
+	    
+	    public Product partialUpdate(Product product) {
+			Product productChecked = repo.findById(product.getId()).orElseThrow(() -> new OrderException("Product#" + product.getId() + " not found"));
+	        repo.save(productChecked);
+	        return productChecked;
+		}		     
 	     
 	    public void delete(Long id) {
 	        repo.deleteById(id);

@@ -75,6 +75,12 @@ public class OrderService {
 			Ordermodel orderChecked = repo.findById(ordermodel.getId()).orElseThrow(() -> new OrderException("Ordermodel#" + ordermodel.getId() + " not found"));
 			return repo.save(ordermodel);
 		}
+	    
+	    public Ordermodel partialUpdate(Ordermodel ordermodel) {
+			Ordermodel ordermodelChecked = repo.findById(ordermodel.getId()).orElseThrow(() -> new OrderException("Ordermodel#" + ordermodel.getId() + " not found"));
+	        repo.save(ordermodelChecked);
+	        return ordermodelChecked;
+		}	
 	     
 	    public void delete(long id) {
 	        repo.deleteById(id);
